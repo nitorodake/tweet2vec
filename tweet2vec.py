@@ -106,8 +106,9 @@ n_data = len(input_data)
 
 # model 定義
 model = Tweet2Vec(n_vocab, n_hashtag, n_embed, n_hidden)
-optimizer = optimizers.NesterovAG() # Nesterov’s momentum L2正則化未実装
+optimizer = optimizers.NesterovAG() # Nesterov’s momentum
 optimizer.setup(model)
+optimizer.add_hook(chainer.optimizer.WeightDecay(0.001))
 
 if args.gpu >= 0:
     model.to_gpu()
